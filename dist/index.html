@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A staff-facing K–5 prototype for planning practical language supports for multilingual learners."
+    />
+    <meta name="theme-color" content="#17324d" />
+    <title>Elementary Language Lab — K–5 planning prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Elementary Language Lab home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" focusable="false">
+              <path d="M9 7.5h14M12 7.5v6.1l-5.3 9.1a2.7 2.7 0 0 0 2.4 4h13.8a2.7 2.7 0 0 0 2.4-4L20 13.6V7.5" />
+              <path d="M10.4 21.5h11.2M13.6 18.2h4.8" />
+            </svg>
+          </span>
+          <span>
+            <strong>Elementary Language Lab</strong>
+            <small>Practical access for multilingual learners</small>
+          </span>
+        </a>
+
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span class="menu-icon" aria-hidden="true"></span>
+          <span>Menu</span>
+        </button>
+
+        <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+          <a href="#planner">Plan a lesson</a>
+          <a href="#moments">Browse supports</a>
+          <a href="#toolkit">Ready-to-use tools</a>
+          <a href="#guidance">Guidance</a>
+          <a class="nav-help" href="#help">Get EAL help</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="eyebrow-row">
+              <span class="eyebrow">K–5 teacher prototype</span>
+              <span class="status-dot">Staff-facing</span>
+            </div>
+            <h1 id="hero-title">Help every child <em>understand, participate,</em> and show what they know.</h1>
+            <p class="hero-intro">
+              Practical language supports for multilingual learners—organised by grade band,
+              subject, and the classroom task in front of you.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#planner">Plan today’s lesson</a>
+              <a class="button button-secondary" href="#toolkit">Browse tool previews</a>
+            </div>
+            <ul class="hero-points" aria-label="Prototype principles">
+              <li>No student data</li>
+              <li>One useful move at a time</li>
+              <li>Designed for co-planning</li>
+            </ul>
+          </div>
+
+          <aside class="hero-card" aria-label="A simple planning routine">
+            <div class="hero-card-top">
+              <span class="mini-label">A good place to begin</span>
+              <span class="time-pill">2 minutes</span>
+            </div>
+            <h2>Plan for participation</h2>
+            <ol class="routine-list">
+              <li>
+                <span>1</span>
+                <div><strong>Name the task</strong><small>What will students do?</small></div>
+              </li>
+              <li>
+                <span>2</span>
+                <div><strong>Spot the language</strong><small>What must they understand or express?</small></div>
+              </li>
+              <li>
+                <span>3</span>
+                <div><strong>Choose one support</strong><small>Keep the thinking ambitious.</small></div>
+              </li>
+              <li>
+                <span>4</span>
+                <div><strong>Teach, check, adjust</strong><small>Notice what makes participation possible.</small></div>
+              </li>
+            </ol>
+            <p class="hero-card-note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 4v6l4 2" /></svg>
+              Start with what fits today. Build from there.
+            </p>
+          </aside>
+        </div>
+        <div class="hero-shape hero-shape-one" aria-hidden="true"></div>
+        <div class="hero-shape hero-shape-two" aria-hidden="true"></div>
+      </section>
+
+      <section id="planner" class="planner-section section-pad" aria-labelledby="planner-title">
+        <div class="section-heading split-heading">
+          <div>
+            <span class="section-kicker">Plan a lesson</span>
+            <h2 id="planner-title">Get three supports for today</h2>
+          </div>
+          <p>Choose what best describes the lesson. The language profile is helpful, but optional.</p>
+        </div>
+
+        <div class="planner-shell">
+          <form id="planner-form" class="planner-form">
+            <div class="field-grid">
+              <label>
+                <span>Grade band</span>
+                <select id="grade" name="grade">
+                  <option value="k1">Kindergarten–Grade 1</option>
+                  <option value="23" selected>Grades 2–3</option>
+                  <option value="45">Grades 4–5</option>
+                </select>
+              </label>
+              <label>
+                <span>Subject or context</span>
+                <select id="subject" name="subject">
+                  <option value="science" selected>Science</option>
+                  <option value="literacy">Language & literacy</option>
+                  <option value="math">Mathematics</option>
+                  <option value="community">Social studies</option>
+                  <option value="specialist">Specialist class</option>
+                </select>
+              </label>
+              <label>
+                <span>Students need to…</span>
+                <select id="task" name="task">
+                  <option value="describe" selected>Observe and describe</option>
+                  <option value="directions">Follow multi-step directions</option>
+                  <option value="talk">Join partner or group talk</option>
+                  <option value="read">Read or interpret a text/visual</option>
+                  <option value="explain">Explain how or why</option>
+                  <option value="show">Show what they understand</option>
+                </select>
+              </label>
+              <label>
+                <span>Language profile <small>(optional)</small></span>
+                <select id="profile" name="profile">
+                  <option value="unsure">I’m not sure yet</option>
+                  <option value="starting">Starting to use English</option>
+                  <option value="growing" selected>Growing independence</option>
+                  <option value="extending">Extending academic language</option>
+                </select>
+              </label>
+            </div>
+            <button class="button button-primary planner-submit" type="submit">
+              Show my three supports
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+            <p class="form-note">Prototype only—recommendations do not store student information.</p>
+          </form>
+
+          <div id="planner-results" class="planner-results" aria-live="polite" aria-atomic="true">
+            <div class="results-placeholder">
+              <span class="placeholder-mark" aria-hidden="true">✦</span>
+              <h3>Your practical plan will appear here</h3>
+              <p>Try the sample selections, or choose a lesson of your own.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="moments" class="moments-section section-pad" aria-labelledby="moments-title">
+        <div class="section-heading">
+          <span class="section-kicker">Common classroom moments</span>
+          <h2 id="moments-title">Start with what students need to do</h2>
+          <p>Choose a familiar moment to see one high-impact move and a classroom example.</p>
+        </div>
+
+        <div class="moment-grid">
+          <button class="moment-card" type="button" data-moment="directions">
+            <span class="moment-icon icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M8 9h16M8 16h11M8 23h14" /><path d="m23 14 3 3-3 3" /></svg>
+            </span>
+            <span class="moment-meta">Routines</span>
+            <strong>Understand directions</strong>
+            <small>Make a process visible before adding more words.</small>
+            <span class="text-link">View the support <span aria-hidden="true">→</span></span>
+          </button>
+          <button class="moment-card" type="button" data-moment="talk">
+            <span class="moment-icon icon-mint" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M5 7h15v11H11l-5 4v-4H5z" /><path d="M16 13h11v10h-4v4l-5-4h-2" /></svg>
+            </span>
+            <span class="moment-meta">Interaction</span>
+            <strong>Join partner talk</strong>
+            <small>Rehearse an idea before sharing it with the room.</small>
+            <span class="text-link">View the support <span aria-hidden="true">→</span></span>
+          </button>
+          <button class="moment-card" type="button" data-moment="read">
+            <span class="moment-icon icon-lilac" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M6 6h8a5 5 0 0 1 5 5v15a5 5 0 0 0-5-5H6z" /><path d="M26 6h-3a4 4 0 0 0-4 4" /></svg>
+            </span>
+            <span class="moment-meta">Reading & viewing</span>
+            <strong>Read a text or visual</strong>
+            <small>Preview meaning, then notice the language that carries it.</small>
+            <span class="text-link">View the support <span aria-hidden="true">→</span></span>
+          </button>
+          <button class="moment-card" type="button" data-moment="show">
+            <span class="moment-icon icon-coral" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M7 25 20 12l5 5-13 13H7z" /><path d="m18 14 5 5M6 8h9M6 13h6" /></svg>
+            </span>
+            <span class="moment-meta">Assessment</span>
+            <strong>Show understanding</strong>
+            <small>Offer a response mode that preserves the thinking.</small>
+            <span class="text-link">View the support <span aria-hidden="true">→</span></span>
+          </button>
+        </div>
+      </section>
+
+      <section id="toolkit" class="toolkit-section section-pad" aria-labelledby="toolkit-title">
+        <div class="section-heading split-heading">
+          <div>
+            <span class="section-kicker">Ready-to-use toolkit</span>
+            <h2 id="toolkit-title">Small tools with an immediate job</h2>
+          </div>
+          <a class="subtle-link" href="#help">Suggest a tool <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="tool-grid">
+          <article class="tool-card">
+            <div class="tool-preview preview-frames" aria-hidden="true">
+              <span>I notice…</span><span>I think… because…</span><span>My evidence is…</span>
+            </div>
+            <div class="tool-card-body">
+              <span class="resource-type">Sentence frames · printable concept</span>
+              <h3>Talk moves for explaining</h3>
+              <p>Flexible prompts for partner rehearsal and whole-class sharing.</p>
+              <button type="button" class="tool-action" data-tool="frames">Preview the frames <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-preview preview-routine" aria-hidden="true">
+              <span>1</span><i></i><span>2</span><i></i><span>3</span>
+              <small>look · do · check</small>
+            </div>
+            <div class="tool-card-body">
+              <span class="resource-type">Visual routine · printable concept</span>
+              <h3>Show the steps</h3>
+              <p>A reusable visual strip for routines, investigations, and transitions.</p>
+              <button type="button" class="tool-action" data-tool="routine">Preview the routine <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-preview preview-response" aria-hidden="true">
+              <div><span></span><span></span></div><div><span></span><span></span></div>
+              <small>draw · label · tell · build</small>
+            </div>
+            <div class="tool-card-body">
+              <span class="resource-type">Response menu · editable concept</span>
+              <h3>Ways to show learning</h3>
+              <p>Four evidence options that separate content understanding from writing load.</p>
+              <button type="button" class="tool-action" data-tool="response">Preview the menu <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="guidance" class="guidance-section section-pad" aria-labelledby="guidance-title">
+        <div class="guidance-shell">
+          <div class="guidance-copy">
+            <span class="section-kicker">Trustworthy guidance</span>
+            <h2 id="guidance-title">Keep expectations high. Make participation possible.</h2>
+            <p>
+              Language support should open access to grade-level thinking—not quietly replace it.
+              Start with learner strengths, offer more than one way to make meaning, and adjust
+              support using evidence from the lesson.
+            </p>
+            <a class="button button-secondary light-button" href="#help">Ask the EAL team about a learner</a>
+          </div>
+          <div class="principle-grid">
+            <article>
+              <span>01</span>
+              <h3>Home language is an asset</h3>
+              <p>Use all available language resources to build meaning, connection, and confidence.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Support the language, not less thinking</h3>
+              <p>Keep the learning goal visible while changing how students access and express it.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Notice, then fade</h3>
+              <p>Remove a scaffold when evidence shows the learner can take the next step independently.</p>
+            </article>
+          </div>
+        </div>
+        <div class="policy-note">
+          <strong>Prototype note</strong>
+          <span>Assessment accommodations and school policies should be approved locally and labelled separately from classroom practice.</span>
+        </div>
+      </section>
+
+      <section id="help" class="help-section section-pad" aria-labelledby="help-title">
+        <div class="help-card">
+          <div>
+            <span class="section-kicker">Planning together</span>
+            <h2 id="help-title">Not sure which support fits?</h2>
+            <p>Bring the learning goal and the student task. The EAL team can help you choose one practical next move.</p>
+          </div>
+          <div class="help-actions">
+            <button class="button button-primary" type="button" data-contact>Preview co-planning request</button>
+            <button class="button button-secondary" type="button" data-contact>Preview resource suggestion</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-mark small" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M9 7.5h14M12 7.5v6.1l-5.3 9.1a2.7 2.7 0 0 0 2.4 4h13.8a2.7 2.7 0 0 0 2.4-4L20 13.6V7.5" /><path d="M10.4 21.5h11.2" /></svg>
+          </span>
+          <div><strong>Elementary Language Lab</strong><small>K–5 planning prototype</small></div>
+        </div>
+        <div class="footer-meta">
+          <span>Sample content only</span>
+          <span>Content owner: Elementary EAL Team</span>
+          <span>Review cycle: Each semester</span>
+        </div>
+      </div>
+    </footer>
+
+    <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" type="button" aria-label="Close preview">×</button>
+      <div id="dialog-content"></div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
