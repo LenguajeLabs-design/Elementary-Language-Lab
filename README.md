@@ -2,11 +2,11 @@
 
 A K–5 teacher support hub for planning practical, accessible language supports for multilingual learners.
 
-This responsive prototype helps classroom and specialist teachers choose a grade band, learning context, student task, and optional language profile. It then suggests three immediately usable supports while keeping the academic thinking ambitious.
+This responsive prototype helps classroom and specialist teachers begin with a real lesson goal, then choose a grade band, learning context, student task, and an optional classroom observation. It returns one ready-to-teach starting routine while keeping the academic thinking ambitious.
 
 ## Prototype highlights
 
-- Task-first lesson planner with grade-specific sentence frames
+- Lesson-goal-first planner with a ready-to-teach starting routine and grade-specific sentence frames
 - Cross-curricular examples for science, literacy, mathematics, social studies, and specialist classes
 - Common classroom moments and ready-to-use tool previews
 - Guidance that separates classroom practice from local school policy

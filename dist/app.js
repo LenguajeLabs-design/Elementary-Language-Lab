@@ -13,10 +13,10 @@ const subjectLabels = {
 };
 
 const profileLabels = {
-  unsure: "Profile not selected",
-  starting: "Starting to use English",
-  growing: "Growing independence",
-  extending: "Extending academic language",
+  unsure: "No observation selected",
+  access: "Needs another way into the task",
+  growing: "Can rehearse with some support",
+  extending: "Ready to stretch ideas",
 };
 
 const taskPlans = {
@@ -226,6 +226,33 @@ const taskPlans = {
   },
 };
 
+const taskGuidance = {
+  describe: {
+    languageDemand: "notice a feature and add a precise detail",
+    prep: "Choose one image, object, model, or part of the investigation that makes the lesson goal visible.",
+  },
+  directions: {
+    languageDemand: "understand, sequence, and act on key directions",
+    prep: "Sketch, photograph, or place the first three actions students will need for this lesson.",
+  },
+  talk: {
+    languageDemand: "rehearse an idea, listen, and build on a partner’s thinking",
+    prep: "Write one clear discussion question and give learners a quiet moment to draw or note an initial idea.",
+  },
+  read: {
+    languageDemand: "make meaning from a text, visual, diagram, or model",
+    prep: "Choose one title, image, heading, diagram, or key term that gives students an entry point into the lesson.",
+  },
+  explain: {
+    languageDemand: "connect an idea, evidence, and reasoning",
+    prep: "Put the key event, evidence, or steps from the lesson where students can point to and order them.",
+  },
+  show: {
+    languageDemand: "make their content understanding visible",
+    prep: "Name the non-negotiable content evidence you need to see before choosing a response mode.",
+  },
+};
+
 const momentDetails = {
   directions: {
     tag: "Routine support",
@@ -325,6 +352,7 @@ const toolDetails = {
 
 const form = document.querySelector("#planner-form");
 const results = document.querySelector("#planner-results");
+const learningGoal = document.querySelector("#learning-goal");
 const toast = document.querySelector("#toast");
 const menuButton = document.querySelector(".menu-button");
 const primaryNav = document.querySelector("#primary-nav");
@@ -340,7 +368,7 @@ function selectedValue(id) {
 }
 
 function profileAdjustment(profile) {
-  if (profile === "starting") {
+  if (profile === "access") {
     return "Add a visual or gesture, let students rehearse with a home-language partner, and use one short language chunk at a time.";
   }
   if (profile === "extending") {
@@ -350,6 +378,16 @@ function profileAdjustment(profile) {
     return "Start with the visual and participation routine. Notice what students can do before choosing any additional language scaffold.";
   }
   return "Keep the model visible for rehearsal, then remove one part of the support and notice whether independence increases.";
+}
+
+function escapeHtml(value) {
+  return value.replace(/[&<>'"]/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#39;",
+    '"': "&quot;",
+  })[character]);
 }
 
 function subjectAdjustment(subject) {
@@ -363,12 +401,14 @@ function subjectAdjustment(subject) {
   return adjustments[subject];
 }
 
-function buildPlanText({ grade, subject, task, profile, plan }) {
-  const supports = plan.supports
-    .map((support, index) => `${index + 1}. ${support.title}\n${support.body}\nTry: “${support.frames[grade]}”`)
+function buildPlanText({ grade, subject, task, profile, plan, goal }) {
+  const guidance = taskGuidance[task];
+  const [startHere, ...alternatives] = plan.supports;
+  const alternativeText = alternatives
+    .map((support) => `Optional next move: ${support.title}\n${support.body}\nTry: “${support.frames[grade]}”`)
     .join("\n\n");
 
-  return `Elementary Language Lab — sample plan\n${gradeLabels[grade]} · ${subjectLabels[subject]} · ${plan.label}\n${profileLabels[profile]}\n\n${supports}\n\nQuick check and fade:\n${plan.check}\n\nHome-language option:\n${plan.home}\n\nContext move:\n${subjectAdjustment(subject)}\n\nProfile adjustment:\n${profileAdjustment(profile)}`;
+  return `Elementary Language Lab — support plan\n\nLesson goal:\n${goal}\n\n${gradeLabels[grade]} · ${subjectLabels[subject]}\nLanguage move: Students will ${guidance.languageDemand}.\n\nSTART HERE — ${startHere.title}\nPrepare (2 minutes): ${guidance.prep}\nTeacher says: “${startHere.frames[grade]}”\nStudents do: ${startHere.body}\n\n${alternativeText}\n\nLook for and fade:\n${plan.check}\n\nHome-language option:\n${plan.home}\n\n${subjectLabels[subject]} connection:\n${subjectAdjustment(subject)}\n\nIf you notice ${profileLabels[profile].toLowerCase()}:\n${profileAdjustment(profile)}`;
 }
 
 function renderPlan({ moveFocus = true } = {}) {
@@ -377,14 +417,18 @@ function renderPlan({ moveFocus = true } = {}) {
   const task = selectedValue("task");
   const profile = selectedValue("profile");
   const plan = taskPlans[task];
+  const guidance = taskGuidance[task];
+  const goal = learningGoal.value.trim();
+  const [startHere, ...alternatives] = plan.supports;
+  const escapedGoal = escapeHtml(goal);
 
-  currentPlanText = buildPlanText({ grade, subject, task, profile, plan });
+  currentPlanText = buildPlanText({ grade, subject, task, profile, plan, goal });
 
-  const supportMarkup = plan.supports
+  const alternativeMarkup = alternatives
     .map(
       (support, index) => `
         <article class="support-card">
-          <span class="support-number">0${index + 1}</span>
+          <span class="support-number">0${index + 2}</span>
           <div>
             <h4>${support.title}</h4>
             <p>${support.body}</p>
@@ -398,19 +442,39 @@ function renderPlan({ moveFocus = true } = {}) {
     <div class="results-content">
       <div class="results-header">
         <div>
-          <span class="results-label">Your sample plan</span>
-          <h3 id="results-title" tabindex="-1">${gradeLabels[grade]} · ${subjectLabels[subject]} · ${plan.label}</h3>
+          <span class="results-label">Your support plan</span>
+          <h3 id="results-title" tabindex="-1">Teach this next</h3>
         </div>
         <div class="results-actions" aria-label="Plan actions">
           <button class="icon-button" type="button" data-copy-plan>Copy plan</button>
           <button class="icon-button" type="button" data-print-plan>Print</button>
         </div>
       </div>
-      <div class="support-list">${supportMarkup}</div>
-      <div class="check-strip"><strong>Check and adjust:</strong> ${plan.check}</div>
+      <div class="goal-summary">
+        <div><span>Lesson goal</span><p>${escapedGoal}</p></div>
+        <div><span>Language move</span><p>Students will ${guidance.languageDemand}.</p></div>
+      </div>
+      <article class="support-card support-card-primary">
+        <span class="support-number">01</span>
+        <div>
+          <span class="plan-step">Start here</span>
+          <h4>${startHere.title}</h4>
+          <p>${startHere.body}</p>
+          <div class="routine-grid">
+            <div><strong>Prepare · 2 minutes</strong><span>${guidance.prep}</span></div>
+            <div><strong>Teacher says</strong><span>“${startHere.frames[grade]}”</span></div>
+          </div>
+        </div>
+      </article>
+      <div class="check-strip"><strong>Keep the thinking:</strong> ${subjectAdjustment(subject)}</div>
       <div class="check-strip"><strong>Use all language resources:</strong> ${plan.home}</div>
-      <div class="check-strip"><strong>${subjectLabels[subject]} context:</strong> ${subjectAdjustment(subject)}</div>
-      <div class="check-strip"><strong>Profile adjustment:</strong> ${profileAdjustment(profile)}</div>
+      <div class="check-strip"><strong>Look for, then fade:</strong> ${plan.check}</div>
+      <div class="check-strip"><strong>If you notice ${profileLabels[profile].toLowerCase()}:</strong> ${profileAdjustment(profile)}</div>
+      <details class="alternative-routines">
+        <summary>Two optional next moves</summary>
+        <p>Use these only if they add access to this lesson; the first move is enough to begin.</p>
+        <div class="support-list">${alternativeMarkup}</div>
+      </details>
     </div>`;
 
   results.querySelector("[data-copy-plan]").addEventListener("click", copyPlan);
@@ -454,18 +518,14 @@ form.addEventListener("submit", (event) => {
   renderPlan();
 });
 
+learningGoal.addEventListener("input", () => learningGoal.setCustomValidity(""));
+
 document.querySelectorAll("[data-moment]").forEach((button) => {
   button.addEventListener("click", () => openDetail(momentDetails[button.dataset.moment]));
 });
 
 document.querySelectorAll("[data-tool]").forEach((button) => {
   button.addEventListener("click", () => openDetail(toolDetails[button.dataset.tool]));
-});
-
-document.querySelectorAll("[data-contact]").forEach((button) => {
-  button.addEventListener("click", () => {
-    showToast("Prototype action: connect this to your school’s EAL request form or booking link.");
-  });
 });
 
 dialogClose.addEventListener("click", () => dialog.close());
