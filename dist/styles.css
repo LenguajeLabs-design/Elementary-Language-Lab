@@ -609,6 +609,10 @@ svg {
   gap: 18px 16px;
 }
 
+.field-full {
+  grid-column: 1 / -1;
+}
+
 .planner-form label > span {
   display: block;
   margin-bottom: 7px;
@@ -618,28 +622,44 @@ svg {
 }
 
 .planner-form label small {
+  display: block;
+  margin-top: 6px;
   color: var(--muted);
   font-weight: 600;
 }
 
-.planner-form select {
+.planner-form select,
+.planner-form textarea {
   width: 100%;
   min-height: 48px;
-  appearance: none;
-  padding: 10px 40px 10px 13px;
   color: var(--ink);
-  background:
-    linear-gradient(45deg, transparent 50%, var(--teal) 50%) calc(100% - 17px) 21px / 5px 5px no-repeat,
-    linear-gradient(135deg, var(--teal) 50%, transparent 50%) calc(100% - 12px) 21px / 5px 5px no-repeat,
-    var(--white);
+  background: var(--white);
   border: 1px solid var(--line-strong);
   border-radius: 11px;
   font-size: 14px;
   font-weight: 650;
 }
 
-.planner-form select:hover {
+.planner-form select {
+  appearance: none;
+  padding: 10px 40px 10px 13px;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--teal) 50%) calc(100% - 17px) 21px / 5px 5px no-repeat,
+    linear-gradient(135deg, var(--teal) 50%, transparent 50%) calc(100% - 12px) 21px / 5px 5px no-repeat,
+    var(--white);
+}
+
+.planner-form select:hover,
+.planner-form textarea:hover {
   border-color: #8faeb4;
+}
+
+.planner-form textarea {
+  display: block;
+  min-height: 88px;
+  padding: 12px 13px;
+  line-height: 1.45;
+  resize: vertical;
 }
 
 .planner-submit {
@@ -728,6 +748,38 @@ svg {
   line-height: 1.25;
 }
 
+.goal-summary {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.goal-summary > div {
+  padding: 11px 13px;
+  background: #f4f8f7;
+  border: 1px solid #dbe9e5;
+  border-radius: 12px;
+}
+
+.goal-summary span,
+.plan-step {
+  display: block;
+  color: var(--teal-dark);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.goal-summary p {
+  margin: 3px 0 0;
+  color: var(--ink-2);
+  font-size: 12.5px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
 .results-actions {
   display: flex;
   gap: 6px;
@@ -765,6 +817,13 @@ svg {
   border-radius: 15px;
 }
 
+.support-card-primary {
+  padding: 18px;
+  background: linear-gradient(145deg, #f0faf6 0%, #ffffff 78%);
+  border-color: #9ccfbe;
+  box-shadow: 0 8px 22px rgba(15, 118, 110, 0.08);
+}
+
 .support-number {
   width: 38px;
   height: 38px;
@@ -788,7 +847,7 @@ svg {
 }
 
 .support-card h4 {
-  margin: 0;
+  margin: 3px 0 0;
   font-size: 15px;
 }
 
@@ -810,6 +869,37 @@ svg {
   font-weight: 650;
 }
 
+.routine-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.routine-grid > div {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid #d7e8e2;
+  border-radius: 10px;
+}
+
+.routine-grid strong,
+.routine-grid span {
+  display: block;
+}
+
+.routine-grid strong {
+  color: var(--teal-dark);
+  font-size: 11px;
+}
+
+.routine-grid span {
+  margin-top: 3px;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .check-strip {
   margin-top: 12px;
   padding: 12px 14px;
@@ -817,6 +907,28 @@ svg {
   background: var(--sky);
   border-left: 3px solid #6ba8cf;
   border-radius: 9px;
+  font-size: 12.5px;
+}
+
+.alternative-routines {
+  margin-top: 14px;
+  padding: 0 14px 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.alternative-routines summary {
+  padding: 13px 2px;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 780;
+}
+
+.alternative-routines > p {
+  margin: 0 0 12px;
+  color: var(--muted);
   font-size: 12.5px;
 }
 
@@ -1536,6 +1648,11 @@ svg {
 
   .results-actions {
     margin-top: 13px;
+  }
+
+  .goal-summary,
+  .routine-grid {
+    grid-template-columns: 1fr;
   }
 
   .moment-grid,
